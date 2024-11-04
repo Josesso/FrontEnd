@@ -38,8 +38,9 @@ export const getTopSimulatedProcesses = (simulations, limit = 5) => {
 
     // Contar las simulaciones para cada proceso
     simulations.forEach(simulation => {
+        console.log(simulation);
         const processId = simulation.ProcesoId;
-        const processName = simulation.Proceso.nombre;
+        const processName = simulation.proceso.nombre;
 
         if (!simulationCounts[processId]) {
             simulationCounts[processId] = {
@@ -71,7 +72,7 @@ export const getTopSimulatingUsers = (simulations, limit = 5) => {
     // Contar las simulaciones para cada usuario
     simulations.forEach(simulation => {
         const userId = simulation.UsuarioId;
-        const username = simulation.Usuario.username;
+        const username = simulation.usuario.username;
 
         if (!userSimulationCounts[userId]) {
             userSimulationCounts[userId] = {
