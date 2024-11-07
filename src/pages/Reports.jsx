@@ -214,7 +214,7 @@ export default function Reports() {
         const doc = new jsPDF();
 
         // Agrega la imagen en base64 al PDF
-        const imgData = 'data:image/png;base64,BASE64_IMAGE_STRING'; // Reemplaza BASE64_IMAGE_STRING con tu string base64
+        const imgData = 'data:image/png;base64,BASE64_IMAGE_STRING'; // Reemplaza BASE64_IMAGE_STRING con tu string base64 completo
         doc.addImage(imgData, 'PNG', 14, 10, 30, 30); // Posición y tamaño de la imagen
 
         // Título del PDF
