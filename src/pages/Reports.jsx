@@ -214,7 +214,7 @@ export default function Reports() {
     const exportPdf = () => {
         const doc = new jsPDF();
         doc.setFontSize(18);
-        doc.text('Reportes de la simulacion de procesos de produccion de medicina de jose de la barra', 14, 22);
+        doc.text('Reportes de la simulacion de procesos de produccion de medicina de jose de la barra pozo', 14, 22);
 
         // Datos para la tabla
         const exportData = filteredSimulations.map(sim => ({
