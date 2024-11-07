@@ -213,17 +213,13 @@ export default function Reports() {
     const exportPdf = () => {
         const doc = new jsPDF();
 
-        // Agrega la imagen en base64 al PDF
-        const imgData = 'data:image/png;base64,BASE64_IMAGE_STRING'; // Reemplaza BASE64_IMAGE_STRING con tu string base64 completo
-        doc.addImage(imgData, 'PNG', 14, 10, 30, 30); // Posición y tamaño de la imagen
-
         // Título del PDF
         doc.setFontSize(18);
-        doc.text('Reportes de la simulacion de procesos de produccion de medicina', 50, 22);
+        doc.text('Reportes de la simulacion de procesos de produccion de medicina', 14, 22);
 
         // Mostrar filtros aplicados en el PDF
         doc.setFontSize(12);
-        doc.text(`Filtros aplicados:`, 14, 50);
+        doc.text(`Filtros aplicados:`, 14, 40);
         doc.setFontSize(10);
 
         // Agrega cada filtro que fue aplicado
@@ -233,7 +229,7 @@ export default function Reports() {
             `Proceso: ${filters.proceso || 'Todos'}`
         ];
         filtrosAplicados.forEach((filtro, index) => {
-            doc.text(filtro, 14, 60 + (index * 6)); // Coloca cada filtro en una línea nueva
+            doc.text(filtro, 14, 50 + (index * 6)); // Coloca cada filtro en una línea nueva
         });
 
         // Datos para la tabla
