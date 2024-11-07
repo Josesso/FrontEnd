@@ -198,7 +198,6 @@ import { getAcciones } from '../api/acciones';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-
 export default function Reports() {
     const [simulation, setSimulation] = useState([]);
     const [filteredSimulations, setFilteredSimulations] = useState([]); 
@@ -225,7 +224,7 @@ export default function Reports() {
             cantidadMedicina: sim.medicina,
             fallos: sim.fallos.length > 0 ? sim.fallos.join(', ') : 'Sin fallos',
             acciones: sim.acciones.length > 0 
-                ? sim.acciones.map((accion, index) => `${index + 1}.- ${accion}`).join('\n')
+                ? sim.acciones.join(', ') // Aquí se usa coma para separar las acciones
                 : 'Sin acciones'
         }));
 
@@ -256,11 +255,10 @@ export default function Reports() {
 
     // Plantilla para mostrar las acciones en formato de lista separada por comas
     const accionesTemplate = (rowData) => {
-    return rowData.acciones.length > 0 
-        ? rowData.acciones.join(', ') 
-        : 'Sin acciones';
+        return rowData.acciones.length > 0 
+            ? rowData.acciones.join(', ') 
+            : 'Sin acciones';
     };
-
 
     const cols = [
         { field: 'usuario.username', header: 'Nombre de Usuario', sortable: true },
@@ -385,7 +383,7 @@ export default function Reports() {
             {/* Tabla de reportes */}
             <DataTable ref={dt} value={filteredSimulations} paginator rows={8} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
                 {cols.map((col, index) => (
-                    <Column key={index} field={col.field} header={col.header} sortable />
+                    <Column key={index} field={col.field} header={col.header} sortable body={col.body} />
                 ))}
             </DataTable>
         </Card>
