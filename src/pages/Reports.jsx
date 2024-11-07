@@ -256,12 +256,9 @@ export default function Reports() {
 
     // Plantilla para mostrar las acciones en formato de lista enumerada con <br /> y usando dangerouslySetInnerHTML
     const accionesTemplate = (rowData) => {
-        return (
-            <span dangerouslySetInnerHTML={{ __html: rowData.acciones.length > 0 
-                ? rowData.acciones.map((accion, index) => `${index + 1}.- ${accion}`).join('<br />') 
-                : 'Sin acciones' 
-            }} />
-        );
+        return rowData.acciones.length > 0 
+            ? rowData.acciones.join(', ') 
+            : 'Sin acciones';
     };
 
     const cols = [
