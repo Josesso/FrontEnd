@@ -214,7 +214,7 @@ export default function Reports() {
     const exportPdf = () => {
         const doc = new jsPDF();
         doc.setFontSize(18);
-        doc.text('Reportes de la simulacion', 14, 22);
+        doc.text('Reportes de la simulacion de procesos de produccion de medicina', 14, 22);
 
         // Datos para la tabla
         const exportData = filteredSimulations.map(sim => ({
@@ -254,12 +254,13 @@ export default function Reports() {
         return rowData.fallos.length > 0 ? rowData.fallos.join(', ') : 'Sin fallos';
     };
 
-    // Plantilla para mostrar las acciones en formato de lista enumerada con <br /> y usando dangerouslySetInnerHTML
+    // Plantilla para mostrar las acciones en formato de lista separada por comas
     const accionesTemplate = (rowData) => {
-        return rowData.acciones.length > 0 
-            ? rowData.acciones.join(', ') 
-            : 'Sin acciones';
+    return rowData.acciones.length > 0 
+        ? rowData.acciones.join(', ') 
+        : 'Sin acciones';
     };
+
 
     const cols = [
         { field: 'usuario.username', header: 'Nombre de Usuario', sortable: true },
