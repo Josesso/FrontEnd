@@ -213,14 +213,20 @@ export default function Reports() {
     const exportPdf = () => {
         const doc = new jsPDF();
 
-        // Título del PDF
+        // Título principal del PDF
+        doc.setFontSize(22);
+        doc.setTextColor(34, 139, 34); // Verde
+        doc.text('Laboratorio Farmacéutico Herbas', 14, 20);
+
+        // Subtítulo del PDF
         doc.setFontSize(18);
-        doc.text('Reportes de la simulacion de procesos de produccion de medicina', 14, 22);
+        doc.setTextColor(0, 0, 0); // Negro
+        doc.text('Reportes de la simulacion de procesos de produccion de medicina', 14, 35);
 
         // Mostrar filtros aplicados en el PDF
         doc.setFontSize(12);
-        doc.text(`Filtros aplicados:`, 14, 40);
-        doc.setFontSize(10);
+        doc.setTextColor(34, 139, 34); // Verde
+        doc.text(`Filtros aplicados:`, 14, 50);
 
         // Agrega cada filtro que fue aplicado
         const filtrosAplicados = [
@@ -229,7 +235,7 @@ export default function Reports() {
             `Proceso: ${filters.proceso || 'Todos'}`
         ];
         filtrosAplicados.forEach((filtro, index) => {
-            doc.text(filtro, 14, 50 + (index * 6)); // Coloca cada filtro en una línea nueva
+            doc.text(filtro, 14, 60 + (index * 6)); // Coloca cada filtro en una línea nueva
         });
 
         // Datos para la tabla
@@ -249,7 +255,7 @@ export default function Reports() {
         doc.autoTable({
             head: [['Nombre de Usuario', 'Proceso', 'Fecha de Simulacion', 'Tiempo de Proceso', 'Cantidad de Medicina Realizada', 'Lista de Errores', 'Lista de Acciones']],
             body: exportData.map(row => [row.usuario, row.proceso, row.fechaSimulacion, row.tiempoProceso, row.cantidadMedicina, row.fallos, row.acciones]),
-            startY: 70, // Ajusta esto si la imagen y filtros ocupan más espacio
+            startY: 80, // Ajusta esto si la imagen y filtros ocupan más espacio
             styles: { cellPadding: 3, fontSize: 10 },
             columnStyles: {
                 6: { cellWidth: 40 }, // Ajusta el ancho de la columna de acciones para permitir saltos de línea
