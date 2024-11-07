@@ -212,8 +212,29 @@ export default function Reports() {
     // Función para exportar los datos filtrados a PDF
     const exportPdf = () => {
         const doc = new jsPDF();
+
+        // Agrega la imagen en base64 al PDF
+        const imgData = 'data:image/png;base64,BASE64_IMAGE_STRING'; // Reemplaza BASE64_IMAGE_STRING con tu string base64
+        doc.addImage(imgData, 'PNG', 14, 10, 30, 30); // Posición y tamaño de la imagen
+
+        // Título del PDF
         doc.setFontSize(18);
-        doc.text('Reportes de la simulacion de procesos de produccion de medicina', 14, 22);
+        doc.text('Reportes de la simulacion de procesos de produccion de medicina', 50, 22);
+
+        // Mostrar filtros aplicados en el PDF
+        doc.setFontSize(12);
+        doc.text(`Filtros aplicados:`, 14, 50);
+        doc.setFontSize(10);
+
+        // Agrega cada filtro que fue aplicado
+        const filtrosAplicados = [
+            `Usuario: ${filters.nombreUsuario || 'Todos'}`,
+            `Fecha de Simulación: ${filters.fechaSimulacion || 'Todas'}`,
+            `Proceso: ${filters.proceso || 'Todos'}`
+        ];
+        filtrosAplicados.forEach((filtro, index) => {
+            doc.text(filtro, 14, 60 + (index * 6)); // Coloca cada filtro en una línea nueva
+        });
 
         // Datos para la tabla
         const exportData = filteredSimulations.map(sim => ({
@@ -224,7 +245,7 @@ export default function Reports() {
             cantidadMedicina: sim.medicina,
             fallos: sim.fallos.length > 0 ? sim.fallos.join(', ') : 'Sin fallos',
             acciones: sim.acciones.length > 0 
-                ? sim.acciones.join(', ') // Aquí se usa coma para separar las acciones
+                ? sim.acciones.join(', ')
                 : 'Sin acciones'
         }));
 
@@ -232,7 +253,7 @@ export default function Reports() {
         doc.autoTable({
             head: [['Nombre de Usuario', 'Proceso', 'Fecha de Simulacion', 'Tiempo de Proceso', 'Cantidad de Medicina Realizada', 'Lista de Errores', 'Lista de Acciones']],
             body: exportData.map(row => [row.usuario, row.proceso, row.fechaSimulacion, row.tiempoProceso, row.cantidadMedicina, row.fallos, row.acciones]),
-            startY: 30,
+            startY: 70, // Ajusta esto si la imagen y filtros ocupan más espacio
             styles: { cellPadding: 3, fontSize: 10 },
             columnStyles: {
                 6: { cellWidth: 40 }, // Ajusta el ancho de la columna de acciones para permitir saltos de línea
